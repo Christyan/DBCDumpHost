@@ -1,12 +1,12 @@
 ﻿using DBCD.Providers;
-using DBCDumpHost.Utils;
+using ToolsAPI.Utils;
 using DBDefsLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace DBCDumpHost.Services
+namespace ToolsAPI.Services
 {
     public class DBDProvider : IDBDProvider
     {
@@ -22,7 +22,7 @@ namespace DBCDumpHost.Services
 
         public int LoadDefinitions()
         {
-            var definitionsDir = SettingManager.definitionDir;
+            var definitionsDir = SettingsManager.definitionDir;
             Logger.WriteLine("Reloading definitions from directory " + definitionsDir);
 
             // lookup needs both filepath and def for DBCD to work

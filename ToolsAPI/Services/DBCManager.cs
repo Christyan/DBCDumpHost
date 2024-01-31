@@ -1,7 +1,7 @@
 ﻿using DBCD;
 using DBCD.Providers;
-using DBCDumpHost.Controllers;
-using DBCDumpHost.Utils;
+using ToolsAPI.Controllers;
+using ToolsAPI.Utils;
 using DBFileReaderLib;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DBCDumpHost.Services
+namespace ToolsAPI.Services
 {
     public class DBCManager : IDBCManager
     {

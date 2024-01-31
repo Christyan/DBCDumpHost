@@ -1,4 +1,4 @@
-﻿namespace DBCDumpHost.Utils
+﻿namespace ToolsAPI.Utils
 {
     using System;
     public static class Logger

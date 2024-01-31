@@ -1,7 +1,11 @@
 ﻿{
     "config": {
+        "cacheDir": "Z:/CASCroot/",
         "dbcdir": "Z:/DBCs",
         "definitionsdir": "../../WoWDBDefs/definitions",
-        "cascToolHost":  "http://wowtools.work:8888"
+        "cascToolHost":  "http://wowtools.work:8888",
+        "siteHost": "http://wowtools.work",
+        "connectionString": "Server=localhost;Database=wowtools;Uid=wowtools;Pwd=password",
+        "apiKey": ""
     }
 }

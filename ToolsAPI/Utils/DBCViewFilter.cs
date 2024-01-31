@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace DBCDumpHost.Utils
+namespace ToolsAPI.Utils
 {
     public class DBCViewFilter
     {

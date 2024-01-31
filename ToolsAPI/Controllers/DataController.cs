@@ -1,6 +1,6 @@
 ﻿using DBCD.Providers;
-using DBCDumpHost.Services;
-using DBCDumpHost.Utils;
+using ToolsAPI.Services;
+using ToolsAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DBCDumpHost.Controllers
+namespace ToolsAPI.Controllers
 {
     [Route("api/data")]
     [ApiController]
@@ -121,7 +121,7 @@ namespace DBCDumpHost.Controllers
             catch (Exception e)
             {
                 Logger.WriteLine("Error occured during serving data: " + e.Message);
-                result.error = e.Message.Replace(SettingManager.dbcDir, "");
+                result.error = e.Message.Replace(SettingsManager.dbcDir, "");
             }
 
             return result;

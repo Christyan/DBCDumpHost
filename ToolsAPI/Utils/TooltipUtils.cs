@@ -1,8 +1,8 @@
-﻿using DBCDumpHost.Controllers;
-using DBCDumpHost.Services;
+﻿using ToolsAPI.Controllers;
+using ToolsAPI.Services;
 using System;
 
-namespace DBCDumpHost.Utils
+namespace ToolsAPI.Utils
 {
     public static class TooltipUtils
     {

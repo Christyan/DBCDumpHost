@@ -1,6 +1,6 @@
 ﻿using DBCD;
-using DBCDumpHost.Services;
-using DBCDumpHost.Utils;
+using ToolsAPI.Services;
+using ToolsAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
@@ -10,7 +10,7 @@ using System.IO.Compression;
 using System.Collections.Generic;
 using System.Net;
 
-namespace DBCDumpHost.Controllers
+namespace ToolsAPI.Controllers
 {
     using Parameters = IReadOnlyDictionary<string, string>;
 
@@ -155,7 +155,7 @@ namespace DBCDumpHost.Controllers
             {
                 var extension = "";
                 
-                string fileName = Path.Combine(SettingManager.dbcDir, fullBuild, "dbfilesclient", $"{tableName}.db2");
+                string fileName = Path.Combine(SettingsManager.dbcDir, fullBuild, "dbfilesclient", $"{tableName}.db2");
 
                 if (System.IO.File.Exists(fileName))
                 {
@@ -228,7 +228,7 @@ namespace DBCDumpHost.Controllers
 
         private async Task<string[]> GetDBListForBuild(string build)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://wow.tools/api.php?type=dblist&build=" + build);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(SettingsManager.siteHost + "/api.php?type=dblist&build=" + build);
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
 
             using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())

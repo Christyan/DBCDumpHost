@@ -7,18 +7,18 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["DBCDumpHost/DBCDumpHost.csproj", "DBCDumpHost/"]
+COPY ["ToolsAPI/ToolsAPI.csproj", "ToolsAPI/"]
 COPY ["DBCD/DBFileReaderLib/DBFileReaderLib.csproj", "DBCD/DBFileReaderLib/"]
 COPY ["DBDiffer/DBDiffer/DBDiffer.csproj", "DBDiffer/DBDiffer/"]
 COPY ["WoWTools.SpellDescParser/WoWTools.SpellDescParser.csproj", "WoWTools.SpellDescParser/"]
 COPY ["DBCD/DBCD/DBCD.csproj", "DBCD/DBCD/"]
-RUN dotnet restore "DBCDumpHost/DBCDumpHost.csproj"
+RUN dotnet restore "ToolsAPI/ToolsAPI.csproj"
 COPY . .
-WORKDIR "/src/DBCDumpHost"
-RUN dotnet build "DBCDumpHost.csproj" -c Release -o /app/build
+WORKDIR "/src/ToolsAPI"
+RUN dotnet build "ToolsAPI.csproj" -c Release -o /app/build
 FROM build AS publish
-RUN dotnet publish "DBCDumpHost.csproj" -c Release -o /app/publish
+RUN dotnet publish "ToolsAPI.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DBCDumpHost.dll"]
+ENTRYPOINT ["dotnet", "ToolsAPI.dll"]

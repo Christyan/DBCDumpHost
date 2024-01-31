@@ -1,11 +1,11 @@
-﻿using DBCDumpHost.Utils;
+﻿using ToolsAPI.Utils;
 using DBFileReaderLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace DBCDumpHost.Services
+namespace ToolsAPI.Services
 {
     public static class HotfixManager
     {

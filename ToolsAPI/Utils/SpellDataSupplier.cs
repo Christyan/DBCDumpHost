@@ -1,10 +1,10 @@
 ﻿using DBCD;
-using DBCDumpHost.Services;
+using ToolsAPI.Services;
 using System;
 using System.Linq;
 using WoWTools.SpellDescParser;
 
-namespace DBCDumpHost.Utils
+namespace ToolsAPI.Utils
 {
     public class SpellDataSupplier : ISupplier
     {

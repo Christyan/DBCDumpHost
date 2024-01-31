@@ -1,10 +1,10 @@
-﻿using DBCDumpHost.Services;
-using DBCDumpHost.Utils;
+﻿using ToolsAPI.Services;
+using ToolsAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DBCDumpHost.Controllers
+namespace ToolsAPI.Controllers
 {
     [Route("api/itemtexture")]
     [Route("api/texture")]

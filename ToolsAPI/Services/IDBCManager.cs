@@ -1,7 +1,7 @@
 ﻿using DBCD;
 using System.Threading.Tasks;
 
-namespace DBCDumpHost.Services
+namespace ToolsAPI.Services
 {
     public interface IDBCManager
     {

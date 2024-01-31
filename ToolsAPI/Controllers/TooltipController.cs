@@ -1,7 +1,7 @@
 ﻿using DBCD;
 using DBCD.Providers;
-using DBCDumpHost.Services;
-using DBCDumpHost.Utils;
+using ToolsAPI.Services;
+using ToolsAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WoWTools.SpellDescParser;
 
-namespace DBCDumpHost.Controllers
+namespace ToolsAPI.Controllers
 {
     public struct TTItem
     {

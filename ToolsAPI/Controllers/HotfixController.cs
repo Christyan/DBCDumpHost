@@ -1,5 +1,5 @@
-﻿using DBCDumpHost.Services;
-using DBCDumpHost.Utils;
+﻿using ToolsAPI.Services;
+using ToolsAPI.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBCDumpHost.Controllers
+namespace ToolsAPI.Controllers
 {
     [Route("api/cache")]
     [ApiController]
@@ -30,7 +30,7 @@ namespace DBCDumpHost.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    var result = client.GetStringAsync("https://wow.tools/api.php?type=token&token=" + token).Result;
+                    var result = client.GetStringAsync(SettingsManager.siteHost + "/api.php?type=token&token=" + token).Result;
                     return int.Parse(result);
                 }
             }

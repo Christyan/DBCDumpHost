@@ -1,10 +1,10 @@
 ﻿using DBCD.Providers;
-using DBCDumpHost.Controllers;
+using ToolsAPI.Controllers;
 using System;
 using System.IO;
 using System.Net.Http;
 
-namespace DBCDumpHost.Services
+namespace ToolsAPI.Services
 {
     public class DBCProvider : IDBCProvider
     {
@@ -52,7 +52,7 @@ namespace DBCDumpHost.Services
                 // Try CASC webservice
                 try
                 {
-                    var output = Client.GetStreamAsync(SettingManager.cascToolHost + "/casc/file/db2?tableName=" + tableName + "&fullBuild=" + build + "&locale=" + localeFlags).Result;
+                    var output = Client.GetStreamAsync(SettingsManager.cascToolHost + "/casc/file/db2?tableName=" + tableName + "&fullBuild=" + build + "&locale=" + localeFlags).Result;
                     output.CopyTo(ms);
                     ms.Position = 0;
                     return ms;
@@ -64,7 +64,7 @@ namespace DBCDumpHost.Services
             }
 
             // Fall back to finding an on-disk version
-            string fileName = Path.Combine(SettingManager.dbcDir, build, "dbfilesclient", $"{tableName}.db2");
+            string fileName = Path.Combine(SettingsManager.dbcDir, build, "dbfilesclient", $"{tableName}.db2");
 
             // if the db2 variant doesn't exist try dbc
             if (File.Exists(fileName))

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 
-namespace DBCDumpHost.Services
+namespace ToolsAPI.Services
 {
     public static class GameTableProvider
     {
@@ -56,7 +56,7 @@ namespace DBCDumpHost.Services
                 using (var client = new HttpClient())
                 {
                     var tempDict = new Dictionary<int, MultByILVLRow>();
-                    var output = client.GetStringAsync(SettingManager.cascToolHost + "/casc/file/gametable?gameTableName=staminamultbyilvl&fullBuild=" + build).Result;
+                    var output = client.GetStringAsync(SettingsManager.cascToolHost + "/casc/file/gametable?gameTableName=staminamultbyilvl&fullBuild=" + build).Result;
                     var lines = output.Split("\r\n");
                     for (var i = 1; i < lines.Length; i++)
                     {
@@ -101,7 +101,7 @@ namespace DBCDumpHost.Services
                 using (var client = new HttpClient())
                 {
                     var tempDict = new Dictionary<int, MultByILVLRow>();
-                    var output = client.GetStringAsync(SettingManager.cascToolHost + "/casc/file/gametable?gameTableName=CombatRatingsMultByILvl&fullBuild=" + build).Result;
+                    var output = client.GetStringAsync(SettingsManager.cascToolHost + "/casc/file/gametable?gameTableName=CombatRatingsMultByILvl&fullBuild=" + build).Result;
                     var lines = output.Split("\r\n");
                     for (var i = 1; i < lines.Length; i++)
                     {
@@ -146,7 +146,7 @@ namespace DBCDumpHost.Services
                 using (var client = new HttpClient())
                 {
                     var tempDict = new Dictionary<int, SpellScalingRow>();
-                    var output = client.GetStringAsync(SettingManager.cascToolHost + "/casc/file/gametable?gameTableName=SpellScaling&fullBuild=" + build).Result;
+                    var output = client.GetStringAsync(SettingsManager.cascToolHost + "/casc/file/gametable?gameTableName=SpellScaling&fullBuild=" + build).Result;
                     var lines = output.Split("\r\n");
                     for (var i = 1; i < lines.Length; i++)
                     {
