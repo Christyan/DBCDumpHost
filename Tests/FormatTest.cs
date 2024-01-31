@@ -323,5 +323,15 @@ namespace Tests
         {
             return null;
         }
+
+        public int? SupplyDuration(int spellID)
+        {
+            return null;
+        }
+
+        public int? SupplyEffectMisc(int spellID, uint? effectIndex)
+        {
+            return null;
+        }
     }
 }
