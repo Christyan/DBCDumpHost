@@ -18,11 +18,11 @@ namespace DBCDumpHost.Controllers
         public string Name { get; set; }
         public int IconFileDataID { get; set; }
         public int ExpansionID { get; set; }
-        public byte ClassID { get; set; }
-        public byte SubClassID { get; set; }
-        public sbyte InventoryType { get; set; }
-        public ushort ItemLevel { get; set; }
-        public byte OverallQualityID { get; set; }
+        public int ClassID { get; set; }
+        public int SubClassID { get; set; }
+        public int InventoryType { get; set; }
+        public int ItemLevel { get; set; }
+        public int OverallQualityID { get; set; }
         public bool HasSparse { get; set; }
         public string FlavorText { get; set; }
         public TTItemEffect[] ItemEffects { get; set; }
@@ -31,7 +31,7 @@ namespace DBCDumpHost.Controllers
         public string DPS { get; set; }
         public string MinDamage { get; set; }
         public string MaxDamage { get; set; }
-        public sbyte RequiredLevel { get; set; }
+        public int RequiredLevel { get; set; }
     }
 
     public struct TTItemEffect
@@ -98,10 +98,10 @@ namespace DBCDumpHost.Controllers
                 return NotFound();
             }
 
-            result.IconFileDataID = (int)itemEntry["IconFileDataID"];
-            result.ClassID = (byte)itemEntry["ClassID"];
-            result.SubClassID = (byte)itemEntry["SubclassID"];
-            result.InventoryType = (sbyte)itemEntry["InventoryType"];
+            result.IconFileDataID = Convert.ToInt32(itemEntry["IconFileDataID"]);
+            result.ClassID = Convert.ToInt32(itemEntry["ClassID"]);
+            result.SubClassID = Convert.ToInt32(itemEntry["SubclassID"]);
+            result.InventoryType = Convert.ToInt32(itemEntry["InventoryType"]);
 
             // Icons in Item.db2 can be 0. Look up the proper one in ItemModifiedAppearance => ItemAppearance
             if (result.IconFileDataID == 0)
@@ -137,8 +137,8 @@ namespace DBCDumpHost.Controllers
                     {
                         result.ExpansionID = (byte)itemSearchNameEntry["ExpansionID"];
                     }
-                    result.ItemLevel = (ushort)itemSearchNameEntry["ItemLevel"];
-                    result.OverallQualityID = (byte)itemSearchNameEntry["OverallQualityID"];
+                    result.ItemLevel = Convert.ToInt32(itemSearchNameEntry["ItemLevel"]);
+                    result.OverallQualityID = Convert.ToInt32(itemSearchNameEntry["OverallQualityID"]);
                 }
 
                 result.HasSparse = false;
@@ -146,18 +146,32 @@ namespace DBCDumpHost.Controllers
             else
             {
                 result.HasSparse = true;
-                result.ItemLevel = (ushort)itemSparseEntry["ItemLevel"];
-                result.OverallQualityID = (byte)itemSparseEntry["OverallQualityID"];
+                try
+                {
+                    result.ItemLevel = Convert.ToInt32(itemEntry["ItemLevel"]);
+                }
+                catch
+                {
+                    try
+                    {
+                        result.ItemLevel = Convert.ToInt32(itemSparseEntry["ItemLevel"]);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                result.OverallQualityID = Convert.ToInt32(itemSparseEntry["OverallQualityID"]);
                 result.Name = (string)itemSparseEntry["Display_lang"];
                 result.FlavorText = (string)itemSparseEntry["Description_lang"];
 
                 if (byte.Parse(build[0].ToString()) >= 9 && byte.Parse(build[2].ToString()) >= 1)
                 {
-                    result.ExpansionID = (int)itemSparseEntry["ExpansionID"];
+                    result.ExpansionID = Convert.ToInt32(itemSparseEntry["ExpansionID"]);
                 }
                 else
                 {
-                    result.ExpansionID = (byte)itemSparseEntry["ExpansionID"];
+                    result.ExpansionID = Convert.ToInt32(itemSparseEntry["ExpansionID"]);
                 }
                 result.RequiredLevel = (sbyte)itemSparseEntry["RequiredLevel"];
 
@@ -327,18 +341,30 @@ namespace DBCDumpHost.Controllers
             var result = new TTSpell();
             result.SpellID = spellID;
 
-            var spellNameDB = await dbcManager.GetOrLoad("SpellName", build);
-            if (spellNameDB.TryGetValue(spellID, out DBCDRow spellNameRow))
+            var spellDB = await dbcManager.GetOrLoad("Spell", build);
+            bool hasSpellData = spellDB.TryGetValue(spellID, out var spellRow);
+
+            try
             {
-                var spellName = (string)spellNameRow["Name_lang"];
+                var spellNameDB = await dbcManager.GetOrLoad("SpellName", build);
+                if (spellNameDB.TryGetValue(spellID, out DBCDRow spellNameRow))
+                {
+                    var spellName = (string)spellNameRow["Name_lang"];
+                    if (!string.IsNullOrWhiteSpace(spellName))
+                    {
+                        result.Name = spellName;
+                    }
+                }
+            } catch (System.IO.FileNotFoundException)
+            {
+                var spellName = (string)spellRow["Name_lang"];
                 if (!string.IsNullOrWhiteSpace(spellName))
                 {
                     result.Name = spellName;
                 }
             }
 
-            var spellDB = await dbcManager.GetOrLoad("Spell", build);
-            if (spellDB.TryGetValue(spellID, out var spellRow))
+            if (hasSpellData)
             {
                 var dataSupplier = new SpellDataSupplier(dbcManager, build, level, difficulty, mapID);
 

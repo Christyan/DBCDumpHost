@@ -229,7 +229,7 @@ namespace DBCDumpHost.Utils
             }
         }
 
-        public static (string TargetField, sbyte TargetIndex) GetRandomPropertyByInventoryType(byte overallQualityID, sbyte inventoryTypeID, byte subClassID, string build)
+        public static (string TargetField, sbyte TargetIndex) GetRandomPropertyByInventoryType(int overallQualityID, int inventoryTypeID, int subClassID, string build)
         {
             var inventoryType = (InventoryType)inventoryTypeID;
 
@@ -287,7 +287,7 @@ namespace DBCDumpHost.Utils
             return (targetField, targetIndex);
         }
 
-        public static TTItemStat CalculateItemStat(sbyte StatTypeID, int randProp, ushort ItemLevel, int statAlloc, float socketPenalty, byte QualityID, sbyte InventoryTypeID, byte SubClassID, string build)
+        public static TTItemStat CalculateItemStat(sbyte StatTypeID, int randProp, int ItemLevel, int statAlloc, float socketPenalty, int QualityID, int InventoryTypeID, int SubClassID, string build)
         {
             // TODO: Socket penalty
 
