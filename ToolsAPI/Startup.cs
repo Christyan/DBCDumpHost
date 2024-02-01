@@ -56,6 +56,7 @@ namespace ToolsAPI
                 app.UseHsts();
             }
 
+            app.UseCors(wtOrigins);
             app.UseResponseCompression();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
