@@ -11,6 +11,8 @@ namespace ToolsAPI
 {
     public class Startup
     {
+        readonly string wtOrigins = "_wtOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,6 +25,19 @@ namespace ToolsAPI
         {
             services.AddControllers();
             services.AddResponseCompression();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: wtOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("https://wow.tools");
+                        builder.WithOrigins("http://wow.tools.localhost");
+                        builder.WithOrigins("https://wowtools.work");
+                        builder.WithOrigins("http://wowtools.work");
+                        builder.WithOrigins("http://wowtools.work.local");
+                    });
+            });
+
 
             services.AddSingleton<IDBDProvider, DBDProvider>();
             services.AddSingleton<IDBCProvider, DBCProvider>();
